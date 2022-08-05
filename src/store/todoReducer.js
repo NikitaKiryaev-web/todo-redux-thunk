@@ -5,7 +5,7 @@ const defaultState = {
 const ADD_TODO = 'ADD_TODO'
 const REMOVE_TODO = 'REMOVE_TODO'
 const ADD_TODO_API = 'ADD_TODO_API'
-const COMPLETE_TODO = 'COMPLETE_TODO'
+const TOGGLE_TODO = 'TOGGLE_TODO'
 
 export const todoReducer = (
   state = defaultState,
@@ -33,14 +33,14 @@ export const todoReducer = (
         todo: [...state.todo, action.payload],
       }
 
-    case COMPLETE_TODO:
+    case TOGGLE_TODO:
       return {
         ...state,
         todo: state.todo.map((todoItem) => {
           return todoItem.id === action.payload
             ? {
                 ...todoItem,
-                isComplete: true,
+                isComplete: !todoItem.isComplete,
               }
             : todoItem
         }),
@@ -63,7 +63,7 @@ export const addTodoApiAction = (payload) => ({
   type: ADD_TODO_API,
   payload: payload,
 })
-export const completeTodoAction = (payload) => ({
-  type: COMPLETE_TODO,
+export const toggleTodoAction = (payload) => ({
+  type: TOGGLE_TODO,
   payload: payload,
 })

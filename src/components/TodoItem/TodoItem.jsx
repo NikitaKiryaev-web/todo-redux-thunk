@@ -1,16 +1,40 @@
 import './TodoItem.scss'
-
+import {
+  removeTodoAction,
+  toggleTodoAction,
+} from '../../store/todoReducer'
+import { useDispatch } from 'react-redux'
 function TodoItem(props) {
+  const dispatch = useDispatch()
+  function deleteTodo(id) {
+    dispatch(removeTodoAction(id))
+  }
+  function toggleTodo(id) {
+    dispatch(toggleTodoAction(id))
+  }
   return (
     <div className="todo-item">
       <label className="todo-item__checkbox-label">
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          checked={props.isCompleted}
+          onChange={() => toggleTodo(props.id)}
+        />
         <span className="todo-item__checkmark"></span>
       </label>
-      <p className="todo-item__text">
+      <p
+        className={`todo-item__text ${
+          props.isCompleted
+            ? 'todo-item__text_line-through'
+            : ''
+        }`}
+      >
         {props.text}
       </p>
-      <btn className="todo-item__delete"></btn>
+      <button
+        onClick={() => deleteTodo(props.id)}
+        className="todo-item__delete"
+      ></button>
     </div>
   )
 }

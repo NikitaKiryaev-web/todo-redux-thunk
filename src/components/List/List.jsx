@@ -11,10 +11,14 @@ function List() {
     <ul className="list">
       {todoItems.map((todo) => {
         return (
-          <li className="list__item">
+          <li
+            className="list__item"
+            key={todo.id}
+          >
             <TodoItem
               text={todo.text}
-              key={todo.id}
+              id={todo.id}
+              isCompleted={todo.isComplete}
             />
           </li>
         )

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import './Input.scss'
 import { changeInputValueAction } from '../../store/inputReducer'
 import { addTodoAction } from '../../store/todoReducer'
@@ -6,6 +7,7 @@ import {
   useSelector,
   useDispatch,
 } from 'react-redux'
+import { useEffect } from 'react'
 
 function Input() {
   const dispatch = useDispatch()
@@ -26,7 +28,8 @@ function Input() {
     if (inputValue !== '') {
       const todo = {
         text: inputValue,
-        isCompete: false,
+        isComplete: false,
+        id: Date.now(),
       }
       dispatch(addTodoAction(todo))
       dispatch(setInputErrorAction(''))
@@ -38,6 +41,25 @@ function Input() {
       )
     }
   }
+
+  function keyHandler(event) {
+    event.key === 'Enter' && addTodo()
+  }
+
+  useEffect(() => {
+    document.addEventListener(
+      'keydown',
+      keyHandler,
+    )
+    return () => {
+      document.removeEventListener(
+        'keydown',
+        keyHandler,
+      )
+    }
+  }, [inputValue])
+
+  //TODO Переделать инпут на неконтролируемый с помощью useRef()
 
   return (
     <>
@@ -54,7 +76,7 @@ function Input() {
           type="button"
           aria-label="Add"
           className="todo-add__btn"
-          onClick={() => addTodo()}
+          onClick={addTodo}
         ></button>
       </div>
       <span className="todo-add__error">
