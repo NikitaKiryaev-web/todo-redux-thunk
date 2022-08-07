@@ -17,14 +17,14 @@ function TodoItem(props) {
       <label className="todo-item__checkbox-label">
         <input
           type="checkbox"
-          checked={props.isCompleted}
+          checked={props.completed}
           onChange={() => toggleTodo(props.id)}
         />
         <span className="todo-item__checkmark"></span>
       </label>
       <p
         className={`todo-item__text ${
-          props.isCompleted
+          props.completed
             ? 'todo-item__text_line-through'
             : ''
         }`}

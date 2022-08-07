@@ -16,9 +16,9 @@ function List() {
             key={todo.id}
           >
             <TodoItem
-              text={todo.text}
+              text={todo.title}
               id={todo.id}
-              isCompleted={todo.isComplete}
+              completed={todo.completed}
             />
           </li>
         )

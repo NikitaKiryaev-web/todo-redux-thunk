@@ -1,34 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './Input.scss'
-import { changeInputValueAction } from '../../store/inputReducer'
+// import { changeInputValueAction } from '../../store/inputReducer'
 import { addTodoAction } from '../../store/todoReducer'
 import { setInputErrorAction } from '../../store/inputReducer'
 import {
   useSelector,
   useDispatch,
 } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { fetchTodo } from '../../asyncActions/todo'
 
 function Input() {
   const dispatch = useDispatch()
-  const inputValue = useSelector(
-    (state) => state.input.text,
-  )
+  // const inputValue = useSelector(
+  //   (state) => state.input.text,
+  // )
   const inputErrorText = useSelector(
     (state) => state.input.errorText,
   )
 
-  function handleChange(e) {
-    dispatch(
-      changeInputValueAction(e.target.value),
-    )
-  }
+  const inputRef = useRef()
+
+  // function handleChange(e) {
+  //   dispatch(
+  //     changeInputValueAction(e.target.value),
+  //   )
+  // }
 
   function addTodo() {
-    if (inputValue !== '') {
+    if (inputRef.current.value !== '') {
       const todo = {
-        text: inputValue,
-        isComplete: false,
+        title: inputRef.current.value,
+        completed: false,
         id: Date.now(),
       }
       dispatch(addTodoAction(todo))
@@ -57,7 +60,7 @@ function Input() {
         keyHandler,
       )
     }
-  }, [inputValue])
+  }, [])
 
   //TODO Переделать инпут на неконтролируемый с помощью useRef()
 
@@ -69,8 +72,9 @@ function Input() {
           type="text"
           maxLength="50"
           className="todo-add__input"
-          onChange={handleChange}
-          value={inputValue}
+          // onChange={handleChange}
+          // value={inputValue}
+          ref={inputRef}
         />
         <button
           type="button"
@@ -82,6 +86,14 @@ function Input() {
       <span className="todo-add__error">
         {inputErrorText !== '' && inputErrorText}
       </span>
+      <button
+        type="button"
+        aria-label="api-add"
+        className="todo-add__btn-api"
+        onClick={() => dispatch(fetchTodo())}
+      >
+        Добавить TODO из API
+      </button>
       <hr className="todo-add__divider" />
     </>
   )

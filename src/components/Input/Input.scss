@@ -39,6 +39,22 @@
         background-color: #3F72AF;
         border-radius: 0 5px 5px 0;
         cursor: pointer;
+        &-api {
+            width: 200px;
+            height: 40px;
+            background-color: #3F72AF;
+            border: none;
+            margin: 0 auto 15px;
+            border-radius: 5px;
+            display: block;
+            cursor: pointer;
+            padding: 0;
+            color: #fff;
+            &:hover {
+                transform: scale(1.1);
+                transition: .3s;
+            }
+        }
         &:hover {
             transform: scale(1.1);
             transition: .3s;

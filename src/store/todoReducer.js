@@ -30,7 +30,7 @@ export const todoReducer = (
     case ADD_TODO_API:
       return {
         ...state,
-        todo: [...state.todo, action.payload],
+        todo: [...state.todo, ...action.payload],
       }
 
     case TOGGLE_TODO:
@@ -40,7 +40,7 @@ export const todoReducer = (
           return todoItem.id === action.payload
             ? {
                 ...todoItem,
-                isComplete: !todoItem.isComplete,
+                completed: !todoItem.completed,
               }
             : todoItem
         }),
