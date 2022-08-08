@@ -1,25 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import './Input.scss'
+import './Input.scss';
 // import { changeInputValueAction } from '../../store/inputReducer'
-import { addTodoAction } from '../../store/todoReducer'
-import { setInputErrorAction } from '../../store/inputReducer'
-import {
-  useSelector,
-  useDispatch,
-} from 'react-redux'
-import { useEffect, useRef } from 'react'
-import { fetchTodo } from '../../asyncActions/todo'
+import { addTodoAction } from '../../store/actions/todoActions';
+import { setInputErrorAction } from '../../store/actions/inputActions';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useRef } from 'react';
+import { fetchTodo } from '../../store/asyncActions/todo';
+import { selectInputErrorText } from '../../store/selectors/inputSelectors';
 
 function Input() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // const inputValue = useSelector(
   //   (state) => state.input.text,
   // )
-  const inputErrorText = useSelector(
-    (state) => state.input.errorText,
-  )
+  const inputErrorText = useSelector(selectInputErrorText);
 
-  const inputRef = useRef()
+  const inputRef = useRef();
 
   // function handleChange(e) {
   //   dispatch(
@@ -33,34 +29,28 @@ function Input() {
         title: inputRef.current.value,
         completed: false,
         id: Date.now(),
-      }
-      dispatch(addTodoAction(todo))
-      dispatch(setInputErrorAction(''))
+      };
+      dispatch(addTodoAction(todo));
+      dispatch(setInputErrorAction(''));
     } else {
-      dispatch(
-        setInputErrorAction(
-          'Поле не может быть пустым',
-        ),
-      )
+      dispatch(setInputErrorAction('Поле не может быть пустым'));
     }
+  }
+
+  function addApiTodo() {
+    dispatch(fetchTodo());
   }
 
   function keyHandler(event) {
-    event.key === 'Enter' && addTodo()
+    event.key === 'Enter' && addTodo();
   }
 
   useEffect(() => {
-    document.addEventListener(
-      'keydown',
-      keyHandler,
-    )
+    document.addEventListener('keydown', keyHandler);
     return () => {
-      document.removeEventListener(
-        'keydown',
-        keyHandler,
-      )
-    }
-  }, [])
+      document.removeEventListener('keydown', keyHandler);
+    };
+  }, []);
 
   //TODO Переделать инпут на неконтролируемый с помощью useRef()
 
@@ -90,13 +80,13 @@ function Input() {
         type="button"
         aria-label="api-add"
         className="todo-add__btn-api"
-        onClick={() => dispatch(fetchTodo())}
+        onClick={addApiTodo}
       >
         Добавить TODO из API
       </button>
       <hr className="todo-add__divider" />
     </>
-  )
+  );
 }
 
-export default Input
+export default Input;

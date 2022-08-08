@@ -1,16 +1,16 @@
-import './TodoItem.scss'
+import './TodoItem.scss';
 import {
   removeTodoAction,
   toggleTodoAction,
-} from '../../store/todoReducer'
-import { useDispatch } from 'react-redux'
+} from '../../store/actions/todoActions';
+import { useDispatch } from 'react-redux';
 function TodoItem(props) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   function deleteTodo(id) {
-    dispatch(removeTodoAction(id))
+    dispatch(removeTodoAction(id));
   }
   function toggleTodo(id) {
-    dispatch(toggleTodoAction(id))
+    dispatch(toggleTodoAction(id));
   }
   return (
     <div className="todo-item">
@@ -24,9 +24,7 @@ function TodoItem(props) {
       </label>
       <p
         className={`todo-item__text ${
-          props.completed
-            ? 'todo-item__text_line-through'
-            : ''
+          props.completed ? 'todo-item__text_line-through' : ''
         }`}
       >
         {props.text}
@@ -36,7 +34,7 @@ function TodoItem(props) {
         className="todo-item__delete"
       ></button>
     </div>
-  )
+  );
 }
 
-export default TodoItem
+export default TodoItem;

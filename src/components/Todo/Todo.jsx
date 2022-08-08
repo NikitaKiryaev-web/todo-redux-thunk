@@ -1,6 +1,6 @@
-import './Todo.scss'
-import Input from '../Input/Input'
-import List from '../List/List'
+import './Todo.scss';
+import Input from '../Input/Input';
+import List from '../List/List';
 
 function Todo() {
   return (
@@ -9,6 +9,6 @@ function Todo() {
       <Input />
       <List />
     </div>
-  )
+  );
 }
-export default Todo
+export default Todo;

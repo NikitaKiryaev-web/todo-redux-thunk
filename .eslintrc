@@ -8,6 +8,7 @@
         1,
         "prefer-double"
       ],
+      "semi":"error",
       "comma-dangle": ["error", "always-multiline"],
       "prettier/prettier": [
         "error",
